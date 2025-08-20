@@ -1,7 +1,82 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="text-center">
+
+<style>
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    padding-top: 160px;
+    min-height: auto;
+}
+
+/* Botón flotante */
+#musicBtn {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    padding: 10px 20px;
+    background: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 1000;
+}
+#musicBtn:hover {
+    background: #cc0000;
+}
+
+/* Ocultamos el iframe */
+#ytPlayer {
+    display: none;
+}
+</style>
+
+<div class="center">
     <h1 class="display-4">Bienvenido a la Compañía Postal CH</h1>
     <p class="lead">Gestión de Dolls, Clientes y Cartas con estilo.</p>
 </div>
+
+<!-- 🎵 YouTube embed (oculto) -->
+<iframe id="ytPlayer" 
+        width="0" height="0"
+        src="https://www.youtube.com/embed/wDNMqtAtMqY?enablejsapi=1&loop=1&playlist=wDNMqtAtMqY"
+        frameborder="0"
+        allow="autoplay">
+</iframe>
+
+<!-- Botón de control -->
+<button id="musicBtn">🎵 Activar música</button>
+
+<script>
+let player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('ytPlayer');
+}
+
+const btn = document.getElementById("musicBtn");
+let isPlaying = false;
+
+btn.addEventListener("click", () => {
+    if (isPlaying) {
+        player.pauseVideo();
+        btn.textContent = "🎵 Activar música";
+    } else {
+        player.playVideo();
+        btn.textContent = "⏸️ Pausar música";
+    }
+    isPlaying = !isPlaying;
+});
+
+//API de YouTube
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+document.body.appendChild(tag);
+</script>
+
 {% endblock %}

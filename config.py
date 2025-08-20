@@ -1,6 +1,7 @@
+#Conexion a la base da datos
 DB_CONFIG = {
     'host': 'localhost',
     'database': 'violet',
     'user': 'postgres',
-    'password': '12345'
+    'password': '1234'
 }
